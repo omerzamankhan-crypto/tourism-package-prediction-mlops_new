@@ -5,12 +5,18 @@ import pandas as pd
 import joblib
 from textwrap import dedent
 
-
 def render_html(content):
+    compact_html = " ".join(
+        line.strip()
+        for line in dedent(content).splitlines()
+        if line.strip()
+    )
+
     st.markdown(
-        dedent(content).strip(),
+        compact_html,
         unsafe_allow_html=True
     )
+  
 # ---------------------------------------------------------
 # Page configuration
 # ---------------------------------------------------------
