@@ -6,14 +6,11 @@ import joblib
 from textwrap import dedent
 
 
-
-
 def render_html(content):
     st.markdown(
         dedent(content).strip(),
         unsafe_allow_html=True
     )
-
 # ---------------------------------------------------------
 # Page configuration
 # ---------------------------------------------------------
@@ -274,9 +271,11 @@ model = load_model()
 # ---------------------------------------------------------
 # Hero section
 # ---------------------------------------------------------
-st.markdown("""
+
+render_html("""
 <div class="hero-container">
     <div class="hero-title">Tourism Package Prediction</div>
+
     <div class="hero-subtitle">
         AI-powered customer purchase likelihood assessment
     </div>
@@ -287,7 +286,7 @@ st.markdown("""
         <span class="hero-tag">✈️ More successful journeys</span>
     </div>
 </div>
-""", unsafe_allow_html=True)
+""")
 
 
 # ---------------------------------------------------------
@@ -567,92 +566,80 @@ with result_area:
             )
 
             if prediction == 1:
-                st.markdown(
-                    f"""
-                    <div class="result-card">
-                        <div class="result-label">
-                            Estimated Purchase Probability
-                        </div>
 
-                        <div class="result-value">
-                            {probability:.1%}
-                        </div>
-
-                        <div class="result-message">
-                            ✓ Likely buyer — prioritize this customer
-                            for marketing contact.
-                        </div>
+                render_html(f"""
+                <div class="result-card">
+                    <div class="result-label">
+                        Estimated Purchase Probability
                     </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+
+                    <div class="result-value">
+                        {probability:.1%}
+                    </div>
+
+                    <div class="result-message">
+                        ✓ Likely buyer — prioritize this customer
+                        for marketing contact.
+                    </div>
+                </div>
+                """)
 
                 st.progress(probability)
 
-                st.markdown(
-                    """
-                    <div class="insight-card">
-                        <strong>💡 Marketing insight</strong><br><br>
-                        Consider contacting this customer with a
-                        personalized tourism package and timely follow-up.
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                render_html("""
+                <div class="insight-card">
+                    <strong>💡 Marketing Insight</strong>
+                    <br><br>
+                    Consider contacting this customer with a personalized
+                    tourism package and timely follow-up.
+                </div>
+                """)
 
             else:
-                st.markdown(
-                    f"""
-                    <div class="low-result-card">
-                        <div class="result-label">
-                            Estimated Purchase Probability
-                        </div>
 
-                        <div class="low-result-value">
-                            {probability:.1%}
-                        </div>
-
-                        <div style="color:#245e89; font-weight:650;">
-                            Lower purchase likelihood — use a
-                            lower-priority or personalized contact strategy.
-                        </div>
+                render_html(f"""
+                <div class="low-result-card">
+                    <div class="result-label">
+                        Estimated Purchase Probability
                     </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+
+                    <div class="low-result-value">
+                        {probability:.1%}
+                    </div>
+
+                    <div style="color:#245e89; font-weight:650;">
+                        Lower purchase likelihood — use a lower-priority
+                        or personalized contact strategy.
+                    </div>
+                </div>
+                """)
 
                 st.progress(probability)
 
-                st.markdown(
-                    """
-                    <div class="insight-card">
-                        <strong>💡 Marketing insight</strong><br><br>
-                        Consider a targeted discount or alternative package
-                        before adding this customer to a priority campaign.
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                render_html("""
+                <div class="insight-card">
+                    <strong>💡 Marketing Insight</strong>
+                    <br><br>
+                    Consider a targeted discount or an alternative package
+                    before adding this customer to a priority campaign.
+                </div>
+                """)
 
         else:
-            st.markdown(
-                """
-                <div class="result-placeholder">
-                    <div style="font-size:42px;">📈</div>
-                    <strong>Prediction awaiting input</strong><br><br>
-                    Review the customer details and click the prediction
-                    button to generate the purchase probability.
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
-        st.markdown(
-            """
-            <div class="disclaimer">
-                This prediction supports marketing decisions and should
-                not be treated as certainty.
+            render_html("""
+            <div class="result-placeholder">
+                <div style="font-size:42px;">📈</div>
+                <strong>Prediction awaiting input</strong>
+                <br><br>
+                Review the customer details and click the prediction
+                button to generate the purchase probability.
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+            """)
+
+        render_html("""
+        <div class="disclaimer">
+            This prediction supports marketing decisions and
+            should not be treated as certainty.
+        </div>
+        """)
