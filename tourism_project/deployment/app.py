@@ -3,7 +3,16 @@ import os
 import streamlit as st
 import pandas as pd
 import joblib
+from textwrap import dedent
 
+
+
+
+def render_html(content):
+    st.markdown(
+        dedent(content).strip(),
+        unsafe_allow_html=True
+    )
 
 # ---------------------------------------------------------
 # Page configuration
